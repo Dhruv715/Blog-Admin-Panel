@@ -75,7 +75,7 @@ const AddCar = () => {
     const token  = localStorage.getItem('Token');
     console.log(token);
     try {
-      const response = await axios.post('http://localhost:5000/Admin/AddCar', data, {
+      const response = await axios.post('https://carhub-car-selling-website-backend-1.onrender.com/Admin/AddCar', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           auth : token

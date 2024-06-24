@@ -31,7 +31,7 @@ function CarList() {
     const token = localStorage.getItem('Token');
     const fetchCars = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/Admin/AllCars', {
+        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/AllCars', {
           headers: {
             auth: token,
           },
@@ -59,7 +59,7 @@ function CarList() {
     if (window.confirm('Are you sure you want to delete this car?')) {
       try {
         const token = localStorage.getItem('Token');
-        const response = await axios.delete(`http://localhost:5000/Admin/DeleteCar/${carId}`, {
+        const response = await axios.delete(`https://carhub-car-selling-website-backend-1.onrender.com/Admin/DeleteCar/${carId}`, {
           headers: {
             auth: token,
           },
@@ -79,7 +79,7 @@ function CarList() {
   const handleStatusChange = async (car, status) => {
     try {
       const token = localStorage.getItem('Token');
-      const response = await axios.patch(`http://localhost:5000/Admin/modifyCarData/${car._id}`, {
+      const response = await axios.patch(`https://carhub-car-selling-website-backend-1.onrender.com/Admin/modifyCarData/${car._id}`, {
         status: status
       }, {
         headers: {
@@ -138,7 +138,7 @@ function CarList() {
               <TableRow key={car._id}>
                 <TableCell>
                   <img
-                    src={`http://localhost:5000/images/${car.images[0]}`}
+                    src={`https://carhub-car-selling-website-backend-1.onrender.com/images/${car.images[0]}`}
                     style={{ width: '100px', height: '100px', objectFit: 'contain' }}
                     alt=""
                   />
@@ -168,7 +168,7 @@ function CarList() {
                   <IconButton color="primary" onClick={() => handleEdit(car)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton color="secondary" onClick={() => handleDelete(car._id)}>
+                  <IconButton color="primary" onClick={() => handleDelete(car._id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

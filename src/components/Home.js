@@ -14,9 +14,9 @@ const Home = () => {
     useEffect(() => {
         const fetchCounts = async () => {
             try {
-                const carResponse = await axios.get('http://localhost:5000/Admin/countCars');
-                const userResponse = await axios.get('http://localhost:5000/Admin/countUsers');
-                const inquiryResponse = await axios.get('http://localhost:5000/Admin/countInquiry'); // Fetch inquiry count
+                const carResponse = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/countCars');
+                const userResponse = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/countUsers');
+                const inquiryResponse = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/countInquiry'); // Fetch inquiry count
                 setCarCount(carResponse.data.count);
                 setUserCount(userResponse.data.count);
                 setInquiryCount(inquiryResponse.data.count); // Set inquiry count

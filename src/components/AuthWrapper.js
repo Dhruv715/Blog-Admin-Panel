@@ -16,7 +16,7 @@ const AuthWrapper = ({ children }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/Admin/getDataAdmin', {
+        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/getDataAdmin', {
           headers: { 'auth': token } 
         });
 

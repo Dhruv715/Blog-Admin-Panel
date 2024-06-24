@@ -35,7 +35,7 @@ function EditCar({ car, onClose, onSave }) {
       formData.append('image', file);
 
       try {
-        const response = await axios.post('http://localhost:5000/Admin/UploadImage', formData, {
+        const response = await axios.post('https://carhub-car-selling-website-backend-1.onrender.com/Admin/UploadImage', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'auth': localStorage.getItem('Token')
@@ -61,7 +61,7 @@ function EditCar({ car, onClose, onSave }) {
   const handleSaveChanges = async () => {
     try {
       const token = localStorage.getItem('Token');
-      const response = await axios.patch(`http://localhost:5000/Admin/modifyCarData/${car._id}`, editedCar, {
+      const response = await axios.patch(`https://carhub-car-selling-website-backend-1.onrender.com/Admin/modifyCarData/${car._id}`, editedCar, {
         headers: { 'auth': token }
       });
 
@@ -146,7 +146,7 @@ function EditCar({ car, onClose, onSave }) {
           {editedCar.images.map((img, index) => (
             <Grid item key={index} xs={6} sm={4} md={3}>
               <div style={{ position: 'relative' }}>
-                <img src={`http://localhost:5000/images/${img}`} alt={`car ${index}`} style={{ width: '100%' }} />
+                <img src={`https://carhub-car-selling-website-backend-1.onrender.com/images/${img}`} alt={`car ${index}`} style={{ width: '100%' }} />
                 <IconButton
                   style={{ position: 'absolute', top: 0, right: 0 }}
                   onClick={() => handleDeleteImage(index)}

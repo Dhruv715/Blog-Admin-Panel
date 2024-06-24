@@ -42,7 +42,7 @@ function Inquiry() {
   useEffect(() => {
     const fetchInquiries = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/Admin/getAllInquiry');
+        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/getAllInquiry');
         setInquiries(response.data.data);
       } catch (error) {
         console.error('Error fetching inquiries:', error.message);

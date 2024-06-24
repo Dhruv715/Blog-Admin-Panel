@@ -21,7 +21,7 @@ function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/Admin/GetAllUsers', {
+        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/GetAllUsers', {
           headers: {
             auth: localStorage.getItem('Token'),
           },
@@ -71,7 +71,7 @@ function Users() {
               <TableCell>
                   {user.profileImage ? (
                     <img
-                      src={`http://localhost:5000/images/${user.profileImage}`}
+                      src={`https://carhub-car-selling-website-backend-1.onrender.com/images/${user.profileImage}`}
                       alt="Profile"
                       style={{ width: '50px', height: '50px', objectFit: 'cover',borderRadius:'50%' }}
                     />
