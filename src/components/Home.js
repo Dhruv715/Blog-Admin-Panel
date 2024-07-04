@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Container, Grid, Stack, IconButton, Paper } from '@mui/material';
+import { Box, Typography, Container, Grid, Stack, IconButton, Paper, ButtonBase } from '@mui/material';
 import { BsThreeDots, BsPeople } from 'react-icons/bs';
 import { IoCarSport } from "react-icons/io5";
 import { RiSteering2Line } from "react-icons/ri"; // Steering wheel icon for test drive inquiries
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [carCount, setCarCount] = useState(0);
@@ -12,6 +13,7 @@ const Home = () => {
     const [testDriveCount, setTestDriveCount] = useState(0); // New state for test drive inquiries
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCounts = async () => {
@@ -44,27 +46,30 @@ const Home = () => {
                 {/* First Row */}
                 <Grid container item spacing={3}>
                     <Grid item sm={6} xs={12}>
-                        <Paper sx={{ padding: '20px' }}>
-                            <Stack direction="row" justifyContent="space-between" alignItems="flex-start" marginBottom="15px">
-                                <Box display="flex" alignItems="center">
-                                    <Typography variant="h6" gutterBottom color="#000">Number of Cars</Typography>
-                                </Box>
-                                <IconButton size='small'><BsThreeDots /></IconButton>
-                            </Stack>
-                            <Stack direction="row" spacing={2} alignItems="center" marginBottom="5px">
-                                <Box padding="15px" backgroundColor="#f6f9ff" borderRadius="50%" lineHeight="0">
-                                    <IoCarSport color='#4154f1' size={35} />
-                                </Box>
-                                <Box>
-                                    <Typography variant="h5" gutterBottom marginBottom="0px" fontSize="28px" fontWeight="600">
-                                        {carCount}
-                                    </Typography>
-                                </Box>
-                            </Stack>
-                        </Paper>
+                        <ButtonBase onClick={() => navigate('/admin/cars')} sx={{ width: '100%' }}>
+                            <Paper sx={{ padding: '20px', width: '100%' }}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="flex-start" marginBottom="15px">
+                                    <Box display="flex" alignItems="center">
+                                        <Typography variant="h6" gutterBottom color="#000">Number of Cars</Typography>
+                                    </Box>
+                                    <IconButton size='small'><BsThreeDots /></IconButton>
+                                </Stack>
+                                <Stack direction="row" spacing={2} alignItems="center" marginBottom="5px">
+                                    <Box padding="15px" backgroundColor="#f6f9ff" borderRadius="50%" lineHeight="0">
+                                        <IoCarSport color='#4154f1' size={35} />
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="h5" gutterBottom marginBottom="0px" fontSize="28px" fontWeight="600">
+                                            {carCount}
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </Paper>
+                        </ButtonBase>
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                        <Paper sx={{ padding: '20px' }}>
+                    <ButtonBase onClick={() => navigate('/admin/users')} sx={{ width: '100%' }}>
+                        <Paper sx={{ padding: '20px', width: '100%' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="flex-start" marginBottom="15px">
                                 <Box display="flex" alignItems="center">
                                     <Typography variant="h6" gutterBottom color="#000">Number of Users</Typography>
@@ -82,13 +87,15 @@ const Home = () => {
                                 </Box>
                             </Stack>
                         </Paper>
+                        </ButtonBase>
                     </Grid>
                 </Grid>
 
                 {/* Second Row */}
                 <Grid container item spacing={3}>
                     <Grid item sm={6} xs={12}>
-                        <Paper sx={{ padding: '20px' }}>
+                    <ButtonBase onClick={() => navigate('/admin/inquiry')} sx={{ width: '100%' }}>
+                    <Paper sx={{ padding: '20px', width: '100%' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="flex-start" marginBottom="15px">
                                 <Box display="flex" alignItems="center">
                                     <Typography variant="h6" gutterBottom color="#000">Total Inquiries</Typography>
@@ -106,9 +113,11 @@ const Home = () => {
                                 </Box>
                             </Stack>
                         </Paper>
+                        </ButtonBase>
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                        <Paper sx={{ padding: '20px' }}>
+                    <ButtonBase onClick={() => navigate('/admin/testdrive')} sx={{ width: '100%' }}>
+                        <Paper sx={{ padding: '20px', width: '100%' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="flex-start" marginBottom="15px">
                                 <Box display="flex" alignItems="center">
                                     <Typography variant="h6" gutterBottom color="#000">Total Test Drive Inquiries</Typography>
@@ -126,6 +135,7 @@ const Home = () => {
                                 </Box>
                             </Stack>
                         </Paper>
+                        </ButtonBase>
                     </Grid>
                 </Grid>
             </Grid>
