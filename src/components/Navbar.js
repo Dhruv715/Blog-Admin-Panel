@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -21,9 +21,11 @@ import AddIcon from '@mui/icons-material/Add';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
-import { ListItemText } from '@mui/material';
+import { ListItemText, Avatar } from '@mui/material';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -75,7 +77,26 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [adminData, setAdminData] = React.useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('Token');
+    const fetchAdminData = async () => {
+      try {
+        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/getData',{
+          headers :{
+            auth : token
+          }
+        });
+        setAdminData(response.data.Data);
+      } catch (error) {
+        console.error('Error fetching admin data:', error);
+      }
+    };
+
+    fetchAdminData();
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,9 +125,18 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             CarHub | Admin Panel
           </Typography>
+          {adminData && (
+            <Box display="flex" alignItems="center">
+            <Avatar src={`https://carhub-car-selling-website-backend-1.onrender.com/images/${adminData.profileImage}`} />
+              <Typography variant="body1" sx={{ marginLeft: 1 }}>
+                {adminData.name}
+              </Typography>
+           
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -137,7 +167,7 @@ export default function PersistentDrawerLeft() {
               <ListItemText primary="Home" />
             </ListItemButton>
           </ListItem>
-        
+
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/addcar">
               <ListItemIcon>
@@ -164,11 +194,19 @@ export default function PersistentDrawerLeft() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/admin/Inquiry">
+            <ListItemButton component={Link} to="/admin/inquiry">
               <ListItemIcon>
                 <CategoryIcon />
               </ListItemIcon>
               <ListItemText primary="Inquiry" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/admin/testdrive">
+              <ListItemIcon>
+                <DriveEtaIcon />
+              </ListItemIcon>
+              <ListItemText primary="Test Drive Inquiry" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -179,11 +217,11 @@ export default function PersistentDrawerLeft() {
               <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
-
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        {/* Add your main content here */}
       </Main>
     </Box>
   );

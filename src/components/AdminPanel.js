@@ -7,6 +7,7 @@ import Users from "./Users";
 import AddCar from "./AddCar";
 import CarList from "./CarList";
 import Inquiry from "./Inquiry";
+import TestDrive from "./TestDrive";
  
 function AdminPanel() {
   return (
@@ -24,6 +25,8 @@ function AdminPanel() {
           <Route exact path="/users" element={<Users />} />
           {/* Inquiry */}
           <Route exact path="/Inquiry" element={<Inquiry />} />
+          {/* Test Drive Inquiry */}
+          <Route exact path="/testdrive" element={<TestDrive />} />
           
         </Routes>
       </main>
