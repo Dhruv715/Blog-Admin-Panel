@@ -28,7 +28,7 @@ const Login = () => {
         event.preventDefault();
         setLoading(true);
         axios
-            .post("https://carhub-car-selling-website-backend-1.onrender.com/Admin/Login", values)
+            .post("https://blog-backend-pgsc.onrender.com/Login", values)
             .then((response) => {
                 console.log(response);
                 console.log(response.data.token);

@@ -16,16 +16,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
-import CategoryIcon from '@mui/icons-material/Category';
-import AddIcon from '@mui/icons-material/Add';
 import GroupIcon from '@mui/icons-material/Group';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link, useNavigate } from 'react-router-dom';
-import { ListItemText, Avatar } from '@mui/material';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { ListItemText, Avatar } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -76,27 +73,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [adminData, setAdminData] = React.useState(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('Token');
-    const fetchAdminData = async () => {
-      try {
-        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/getData',{
-          headers :{
-            auth : token
-          }
-        });
-        setAdminData(response.data.Data);
-      } catch (error) {
-        console.error('Error fetching admin data:', error);
-      }
-    };
-
-    fetchAdminData();
-  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,17 +105,9 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            CarHub | Admin Panel
+            MyBlog
           </Typography>
-          {adminData && (
-            <Box display="flex" alignItems="center">
-            <Avatar src={`https://carhub-car-selling-website-backend-1.onrender.com/images/${adminData.profileImage}`} />
-              <Typography variant="body1" sx={{ marginLeft: 1 }}>
-                {adminData.name}
-              </Typography>
-           
-            </Box>
-          )}
+          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -169,46 +140,32 @@ export default function PersistentDrawerLeft() {
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/admin/addcar">
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Car" />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/admin/cars">
-              <ListItemIcon>
-                <CategoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Car List" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
             <ListItemButton component={Link} to="/admin/users">
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
-              <ListItemText primary="Users" />
+              <ListItemText primary="All Users" />
             </ListItemButton>
           </ListItem>
+
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/admin/inquiry">
+            <ListItemButton component={Link} to="/admin/blogs">
               <ListItemIcon>
-                <CategoryIcon />
+                <ReceiptIcon />
               </ListItemIcon>
-              <ListItemText primary="Inquiry" />
+              <ListItemText primary="All Blogs" />
             </ListItemButton>
           </ListItem>
+
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/admin/testdrive">
+            <ListItemButton component={Link} to="/admin/addblog">
               <ListItemIcon>
-                <DriveEtaIcon />
+                <ReceiptIcon />
               </ListItemIcon>
-              <ListItemText primary="Test Drive Inquiry" />
+              <ListItemText primary="Add Blog" />
             </ListItemButton>
           </ListItem>
+
           <ListItem disablePadding>
             <ListItemButton onClick={handleLogout}>
               <ListItemIcon>

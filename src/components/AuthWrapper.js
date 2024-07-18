@@ -10,14 +10,16 @@ const AuthWrapper = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('Token');
+      console.log(token);
       if (!token) {
         navigate('/login');
         return;
       }
-
       try {
-        const response = await axios.get('https://carhub-car-selling-website-backend-1.onrender.com/Admin/getDataAdmin', {
-          headers: { 'auth': token } 
+        const response = await axios.post('https://blog-backend-pgsc.onrender.com/VerifyAdmin',{}, {
+          headers:{
+            'auth' : token
+          }
         });
 
         // console.log('Token Validation Response:', response.data);
