@@ -5,8 +5,6 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 function AllBlogs() {
   const [blogs, setBlogs] = useState([]);
-  const [deleteId, setDeleteId] = useState(null);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [updateId, setUpdateId] = useState(null);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTitle, setUpdateTitle] = useState('');
@@ -23,27 +21,17 @@ function AllBlogs() {
 
   useEffect(() => {
     fetchBlogs();
-  }, [deleteId, updateId]); // Update useEffect dependencies to refresh on delete or update
+  }, [updateId]); // Update useEffect dependencies to refresh on delete or update
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`https://blog-backend-pgsc.onrender.com/blog/deleteblog/${id}`);
-      setDeleteId(id); // Trigger useEffect to refresh data
-      fetchBlogs();
-    } catch (error) {
-      console.error('Error deleting blog:', error);
-    } finally {
-      setOpenDeleteModal(false); // Close the delete modal
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      try {
+        await axios.delete(`https://blog-backend-pgsc.onrender.com/blog/deleteblog/${id}`);
+        fetchBlogs();
+      } catch (error) {
+        console.error('Error deleting blog:', error);
+      }
     }
-  };
-
-  const handleOpenDeleteModal = (id) => {
-    setOpenDeleteModal(true);
-    setDeleteId(id);
-  };
-
-  const handleCloseDeleteModal = () => {
-    setOpenDeleteModal(false);
   };
 
   const handleOpenUpdateModal = (id, title, content) => {
@@ -97,7 +85,7 @@ function AllBlogs() {
                 <IconButton onClick={() => handleOpenUpdateModal(blog._id, blog.title, blog.content)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={() => handleOpenDeleteModal(blog._id)}>
+                <IconButton onClick={() => handleDelete(blog._id)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>
@@ -105,33 +93,6 @@ function AllBlogs() {
           ))}
         </TableBody>
       </Table>
-
-      {/* Delete Modal */}
-      <Modal
-        open={openDeleteModal}
-        onClose={handleCloseDeleteModal}
-        aria-labelledby="delete-modal-title"
-        aria-describedby="delete-modal-description"
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openDeleteModal}>
-          <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '5px', maxWidth: '400px', margin: 'auto', marginTop: '100px' }}>
-            <Typography variant="h6" id="delete-modal-title" gutterBottom>
-              Confirm Delete
-            </Typography>
-            <Typography variant="body1" id="delete-modal-description">
-              Are you sure you want to delete this blog?
-            </Typography>
-            <Button onClick={() => handleDelete(deleteId)} variant="contained" color="secondary" style={{ marginTop: '10px' }}>
-              Delete
-            </Button>
-          </div>
-        </Fade>
-      </Modal>
 
       {/* Update Modal */}
       <Modal
